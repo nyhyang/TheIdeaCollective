@@ -1,0 +1,37 @@
+To-Fix: 
+
+----Overall----
+Colors, fonts and logo
+Banner Image 
+Make everything responsive
+Favicon
+Copy
+
+---Login-----
+Responsive - TOP Priority
+Get a big enough bg image that it fits on all screens without repeat
+Add Sign in with Gmail button - IMPORTANT
+Form - change color from green (on activation)
+Footer - Link names to LinkedIn?
+Copy?
+
+---Create Idea----
+Dynamically add tags/skills and make sure they arrange in a neat grid
+Text wraps in the divs/buttons for tags/skills
+Skills - Waves color change, toggle color on click - IMPORTANT
+Form - change color from green (on activation)
+
+
+----IdeaFeed----
+Override materialize form for a regular textbox looking search box
+Add a "See More" feature for tagetory buttons on display
+Make a fixed size card foreach screen size
+
+Masonry layourt - Different card sizes
+Try : https://medium.com/@_jh3y/how-to-pure-css-masonry-layouts-a8ede07ba31a#.83pdc8837
+
+
+Inspiration -
+Airbnb
+Eventbrite
+Stubhub

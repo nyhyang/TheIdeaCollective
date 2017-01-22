@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% set title = 'Explore' %}
+
+{% block navblock %}
+<li><a href={{ url_for('createidea') }} class="waves-effect waves-light btn white red-text create-idea-btn">Have an idea?</a></li>
+<li><a href={{ url_for('ideafeed', tag_id = 0) }} class="waves-effect waves-light btn white-text red explore-btn ">Explore</a></li>
+<li><a href="#" class="dropdown-button" data-beloworigin="true" href='#' data-activates="dropdown-menu">
+      <img src={{ picture }} alt="" class="circle" id="nav-avatar" style="width:44px; height:44px;">
+  	</a>
+  <ul class="dropdown-content" id="dropdown-menu">
+    <li><a href={{ url_for('dashboard', user_id=user_id) }}>Dashboard</a></li>
+    <li><a href={{ url_for('logout') }}>Logout</a></li>
+  </ul>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="row" id="search-container">
+	<!-- Search for Idea  -->
+	<nav class="col s10 m8 offset-m2 offset-s1" id="search-nav">
+	  <div class="nav-wrapper">
+	    <form action="0" method="post" name="ideafeed">
+	      <div center class="input-field">
+	        <input id="search" type="search" name="descr_search" required placeholder="Looking for an idea?">
+	        <label for="search"></label>
+	      </div>
+	    </form>
+	  </div>
+	</nav>
+
+	<!-- <form action="0" method="post" name="ideafeed">
+		<div class="row" id="search-container">
+			<div class="col s8 m8 l8 offset-l2 offset-m2 offset-s2">
+				<input type="text" name="descr_search" id="search-idea" placeholder="Looking for an idea?">
+			</div>
+		</div>
+	</form> -->
+<!-- 	<div class="col s8 m8 l8 offset-l2 offset-m2 offset-s2">
+		<input type="text" name="search-idea" id="search-idea" placeholder="Looking for an idea?">
+	</div> -->
+</div>
+
+<div class="row">
+	<div class="col s10 m8 offset-m2 offset-s1" style="padding: 0" id="flex-test">
+	<!-- Make this dynamic -->	
+	<!-- Tagetories  -->
+		<!-- <div id="flex-test"> -->
+
+		{% for tag in general_tags %}
+	        <a href={{ url_for('ideafeed', tag_id=tag['tag_id']) }} class="col s2 m3 offset-m1 l2 waves-effect waves-light white red-text btn" id= "tag-btn">{{tag['name']}}</a>   
+	    {% endfor %}
+		<!-- </div> -->
+	</div>
+</div>
+
+<div class="row ideas-container">
+	<!-- Individual ideas  -->
+	{% for idea in ideas %}
+	<div class="card col s12 m4 l4">
+		<!-- Idea Image : insert user uploaded idea photo -->
+	    <div class="card-image waves-effect waves-block waves-light">
+	    	<img class="activator" src="{{ url_for('static', filename='idea.jpeg')  }}">
+	    </div>
+
+	    <div class="card-content">
+	    	<!-- Idea Owner photo -->
+	    	<div class="avatar col s1 m2" id="idea-ownerpic">
+                	<!-- insert user profile photo -->
+                    <img src={{ idea['picture'] }} alt="" class="circle" id="owner-img">
+             </div>
+
+             <!-- Idea Title -->
+	     	<span class="card-title activator grey-text text-darken-4"> <a href={{ url_for('ideapage', idea_id=idea['idea_id']) }}>{{ idea['idea_name'] }}</a></span> 
+
+			<br>
+			<!-- Owner of the Idea -->
+			by {{ idea['user_name'] }} 
+			<br>
+
+	     	<!-- Idea description -->
+	    	<div>
+	    		<p>{{ idea['description'] }}</p>
+	    	</div>
+	    	
+	    </div>
+	    <div class="card-action left-align" id="idea-action">
+	    	{% for tag in tags[idea['idea_id']]%}
+				<div class="tag-item">
+					<a href=# style="color: #f44336"># {{tag}}</a>
+				</div>
+
+			{% endfor %}
+			<div class="right-align">
+				<i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>
+				<!-- <i class="material-icons" id="favorite">favorite_border</i> -->
+			</div>
+        </div>
+	</div>
+
+	{% endfor %}
+	
+
+</div>
+
+{% endblock %}

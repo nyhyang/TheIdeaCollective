@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% set title = 'Share Idea' %}
+
+{% block navblock %}
+<li><a href={{ url_for('createidea') }} class="waves-effect waves-light btn white red-text create-idea-btn">Have an idea?</a></li>
+<li><a href={{ url_for('ideafeed', tag_id = 0) }} class="waves-effect waves-light btn white-text red explore-btn">Explore</a></li>
+<li><a href="#" class="dropdown-button" data-beloworigin="true" href='#' data-activates="dropdown-menu">
+      <img src={{ picture }} alt="" class="circle" id="nav-avatar" style="width:44px; height:44px;">
+      
+    </a>
+  <ul class="dropdown-content" id="dropdown-menu">
+    <li><a href={{ url_for('dashboard', user_id=user_id) }}>Dashboard</a></li>
+    <li><a href={{ url_for('logout') }}>Logout</a></li>
+  </ul>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="containter" id="createidea-container">
+    <div class="row">
+        <div class="col s12 m8 offset-m2">
+            <div class="card">
+                <div class="card-content black-text">
+                    <!-- Idea title -->
+                    <div class="col s12 m11" id="idea-title">
+                        <span class="row card-title center-align">Share your idea!</span>
+                    </div>
+
+                    <div class="col s12 m11 row" id="idea-title">
+                      <h6>An idea that is developed and put into action is more important than an idea that exists only as an idea.</h6>
+                    </div>
+                    
+
+                    <div class="row">
+                    <form class="col s12" action="createidea" method="post" name="createidea">
+
+                        <!-- Idea Name -->
+                        <div class="row">
+                            <div class="input-field col s12 m12 ">
+                              <input name="name" type="text">
+                              <label for="idea_name">Idea Name</label>
+                            </div>
+                        </div>
+
+                        <!-- Idea Description -->    
+                        <div class="row">
+                            <div class="input-field col s12 m12">
+                              <input type="text" name="description" >
+                              <label for="idea_desc">Description</label>
+                            </div>
+                        </div>
+                        
+
+                        <!-- Tagetories -->
+                        <div class="row">
+                          <div class="col s1 m1 l1">
+                            <p style="color: #9e9e9e">Tagetories    </p>
+                          </div>
+
+                          <div class="col s11 m11 l11" id="tag-grid">
+                           <!-- Make this dynamically render from a source list -->
+                            {% for tags in tagetories %}
+                              <input name="tags" type="checkbox" value={{ tags['tag_id'] }} id={{ tags['tag_id'] }}> 
+                              <label for={{ tags['tag_id'] }}>{{ tags['name'] }}</label>
+                            {% endfor %}
+                          </div>
+                        </div>
+
+                        <!-- Required Skills -->
+
+                        <div class="row">
+                          <div class="col s1 m1 l1">
+                            <p style="color: #9e9e9e">Required Skills</p>
+                          </div>
+
+                          <div class="col s11 m11 l11" id="skill-grid">
+                            {% for avail_skill in available_skills %}
+                              <input name="skills" type="checkbox" value={{ avail_skill['skill_id'] }} id=s{{ avail_skill['skill_id'] }}> 
+                              <label for=s{{ avail_skill['skill_id'] }}>{{ avail_skill['name'] }}</label>
+                            {% endfor %}
+                          </div>
+                        </div>
+
+                        <!-- Supporting Material -->
+                        <div class="row">
+                          <div class="col s3 m3 l3">
+                            <p style="color: #9e9e9e">Supporting material</p>
+                          </div>
+
+                          <div class="col s9 m9 l9" id="skills-grid">
+                            <div class="col s2 m2 l2"><a class="upload-btn" href="#"><i class="fa fa-link" aria-hidden="true"></i>   Link</a></div>
+
+                            <div class="col s2 m2 l2"><a class="upload-btn" href="#"><i class="fa fa-camera" aria-hidden="true"></i>   Photo</a></div>
+
+                            <div class="col s2 m2 l2"><a class="upload-btn" href="#"><i class="fa fa-video-camera" aria-hidden="true"></i>   Video</a></div>
+                          </div>
+                        </div>
+
+                        <!-- Ownership -->
+                        <div class="row">
+                          <div class="col s1 m1 l1">
+                            <p style="color: #9e9e9e">Ownership</p>
+                          </div>
+
+                          <div class="col s10 m10 l10" id="ownership-grid">
+                            <div class="col s4 m4 l4"> 
+                              <input name="ownership-grp" type="radio" id="proprietary" value="on"/>
+                              <label for="proprietary">I am the idea owner</label>
+                            </div>
+
+                            <div class="col s6 m6 l6"> 
+                              <input name="ownership-grp" type="radio" id="open" value="off"/>
+                              <label for="open">This idea can be adopted by anyone</label>
+                            </div>
+
+                          </div>
+                        </div>
+
+                    <!-- Action section : Share  -->
+                    <div class=" center-align">
+                        <button class="waves-effect waves-light btn white-text red" type="submit" name="action" >Share</button>
+                    </div> 
+                </form>
+                </div>  
+            </div>
+        </div>
+    </div>    
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,81 @@
+<html>
+  <head>
+    {% if title %}
+    <title>{{ title }} - The Idea Collective</title>
+    {% else %}
+    <title>Welcome to The Idea Collective</title>
+    {% endif %}
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://use.fontawesome.com/033f43d5be.js"></script>
+
+  </head>
+
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Some suggested breakpoints -->
+    <!-- @media (min-width:320px)  { /* smartphones, iPhone, portrait 480x320 phones */ }
+    @media (min-width:481px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ }
+    @media (min-width:641px)  { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ }
+    @media (min-width:961px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */ }
+    @media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
+    @media (min-width:1281px) { /* hi-res laptops and desktops */ } -->
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css')  }}">
+    <link rel="stylesheet" type="text/css" media="(min-width: 768px) and (max-width: 1024px)" href="{{ url_for('static', filename='tablet.css')  }}">
+    <!--iPhone6 viewport sizes-->
+    <link rel="stylesheet" type="text/css" media="(min-width: 375px) and (max-width: 767px)" href="{{ url_for('static', filename='phone.css')  }}">
+  </head>
+
+  <body class="text-center">
+    
+    <!-- Nav Bar -->
+    <div class="navbar-fixed">
+      <nav>
+        <div class="nav-wrapper">
+          <a href="{{url_for('ideafeed', tag_id = 0)}}" class="brand-logo" id="site-title">the idea collective</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            {% block navblock %} {% endblock %}
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Content -->
+    <main id="background">
+      <div >
+        {% block content %}
+        {% endblock %}
+      </div>
+    </main>
+    
+
+
+
+    
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='interactions.js') }}"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+    <footer class="page-footer">
+     <div class="container"> 
+       <div class="row" id="footer-box">
+         <div class="col s12 m12 " id=footer-text>
+             Made with <i class="fa fa-heart" aria-hidden="true"></i> in Berkeley, CA by Anna, Malavika, Nancy and Selenne!
+         </div>
+       </div>
+     </div>
+     
+    </footer>
+
+  </body>
+  
+
+</html>

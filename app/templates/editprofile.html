@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}
+    Edit Profile
+{% endblock %}
+
+{% block navblock %}
+<li><a href={{ url_for('createidea') }} class="waves-effect waves-light btn white red-text create-idea-btn">Have an idea?</a></li>
+<li><a href={{ url_for('ideafeed', tag_id = 0) }} class="waves-effect waves-light btn white-text red explore-btn">Explore</a></li>
+<li><a href="#" class="dropdown-button" data-beloworigin="true" href='#' data-activates="dropdown-menu">
+      <img src={{ picture }} alt="" class="circle"  id="nav-avatar" style="width:44px; height:44px;">
+    </a>
+  <ul class="dropdown-content" id="dropdown-menu">
+    <li><a href={{ url_for('dashboard', user_id=user_id) }}>Dashboard</a></li>
+    <li><a href={{ url_for('logout') }}>Logout</a></li>
+  </ul>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="containter" id="editprofile-container">
+    <div class="row">
+        <div class="col s12 m8 offset-m2">
+            <div class="card">
+                <div class="card-content black-text">
+                    <!-- Edit Profile Title -->
+                    <div>
+                        <h3 class="card-title center-align"> My Profile</h3>
+                    </div>
+              
+                    <div class="row">
+                    <form class="col s12" action="editprofile" method="post" name="profile_skills">
+
+                        <!-- Name -->
+                        <div class="row">
+                            <div class="input-field col s12 m12">
+                              <input id="name" name="name" type="text" class="validate" value="{{name}}">
+                              <label for="name">Name</label>
+                            </div>
+                        </div>
+
+                        <!-- Email -->    
+                        <div class="row">
+                            <div class="input-field col s12 m12">
+                              <input id="email" name="email" type="email" class="validate" placeholder={{email}} readonly>
+                              <label for="email" data-error="wrong" data-success="right">Email</label>
+                            </div>
+                        </div>
+                        
+                        <!-- Bio -->
+                        <div class="row">
+                            <div class="input-field col s12 m12">
+                                <textarea id="bio" name="bio" class="materialize-textarea" length="400" >{{bio}}</textarea>
+                                <label for="textarea1">Bio</label>
+                            </div>
+                        </div>
+
+                        <!-- My skills -->
+                        <div class="row">
+                            <!-- <div class="input-field chips chips-initial chips-placeholder col s12 m12"> -->
+                            <div class="input-field col s12 m12">
+                            <!-- <div class="chips chips-initial chips-placeholder"> -->
+                                <p id="my-skills">My Skills</p>
+
+                                {% for avail_skill in available_skills %}
+                                    <input type="checkbox" value={{ avail_skill['skill_id'] }} name="skills" id={{ avail_skill['skill_id'] }}>
+                                    <label class="" for={{ avail_skill['skill_id'] }}>{{ avail_skill['name'] }}</label>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                    <!-- Action section : Save or Skip for now  -->
+                    <div class="card-action center-align">
+                        <button class="waves-effect waves-light btn white-text red" type="submit" name="action" id="sign-in-btn">Save</button>
+                        <!-- <div class="s2 m1">
+                            <p class="center-align" id="skip"><a id="skip" href="ideafeed">Skip for now</a></p>                  
+                        </div> --> 
+                    </div> 
+                </form>
+                <!-- Comments Section -->
+                    </div>  
+            </div>
+        </div>
+    </div>    
+</div>
+{% endblock %}

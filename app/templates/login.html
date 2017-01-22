@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}
+	Login
+{% endblock %}
+
+{% block navblock %}
+{% endblock %}
+
+{% block content %}
+<div class="row"  id="content">
+  <div class="col s12 m12 l12">
+    <!-- <img src="/static/banner.png" id="banner-img"> -->
+    <div class="container" id="website-description">
+      <div class="row" id="login-text">
+
+        <!-- punchline slogan -->
+        <div class="col s10 m10 l10" id="punchline">
+            We can make ideas real, together!
+        </div>
+
+        <!-- description -->
+    
+        <div class="row" >
+        <div class="col s10 m10 l10" id="subtext">
+          <p>Create a space of trust where students can post their ideas and enrich them by getting commments, upvotes and matching their projects with other people’s skills.</p>
+        </div>
+
+        <!-- login button -->
+        <div class="row col s9  m12  l12" id="login-btn">          
+          <a href={{ url_for('oauth_authorize', provider='google') }}><img src="{{ url_for('static', filename='../static/google-login.png') }}" /></a>
+        </div>
+    
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+

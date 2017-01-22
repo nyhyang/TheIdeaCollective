@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block title %}
+	ideapage
+{% endblock %}
+
+{% block navblock %}
+<li><a href={{ url_for('createidea') }} class="waves-effect waves-light btn white red-text create-idea-btn">Have an idea?</a></li>
+<li><a href={{ url_for('ideafeed', tag_id = 0) }} class="waves-effect waves-light btn white-text red explore-btn">Explore</a></li>
+<li><a href="#" class="dropdown-button" data-beloworigin="true" href='#' data-activates="dropdown-menu">
+      <img src={{ picture }} alt="" class="circle" id="nav-avatar" style="width:44px; height:44px;">
+    </a>
+  <ul class="dropdown-content" id="dropdown-menu">
+    <li><a href={{ url_for('dashboard', user_id=user_id) }}>Dashboard</a></li>
+    <li><a href={{ url_for('logout') }}>Logout</a></li>
+  </ul>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="containter" id="ideapage-container">
+    <div class="row">
+        <div class="col s12 m10 offset-m1">
+            <!-- Idea card  -->
+            
+            
+            <!-- <form action="ideapage" method="post" name={{idea_id}}> -->
+            <div class="card horizontal">
+                <!-- Idea Image -->
+                <div class="card-image">
+                    <img id ="ideaimage" src="../static/idea.jpeg">
+                </div>
+
+
+                <!-- Idea content -->
+                <div class="card-stacked">
+                    <div class="card-content m4 offset-m2" id="idea-content">
+                        <!-- insert idea name -->
+                        {% for idea in ideas %}
+                        <h4 id="idea-name"> {{ idea['name'] }}  <i class="material-icons" id="favorite">favorite_border</i></h4> 
+                        
+                        {% for creator in idea_creator %}
+                            <h6>5 days ago from </h6><h6 id="idea-owner"> {{ creator['name'] }}</h6> <br>
+                        {% endfor %}
+
+                        <!-- insert idea description  -->
+                        
+                            <p> {{ idea['description'] }} </p><br>
+                            <div>
+                                {% if idea['ownership'] == 'on' %}
+                                    This idea is private
+                                {% else %}
+                                    This idea is open for adoption!
+                                {% endif %}
+                            </div>
+
+
+                        {% endfor %}
+
+                        <p id="skills-line"> Skills I'm looking for: </p>
+                        <!-- insert flask for skills  -->
+                        <p id="skills-needed">
+                        {% for skill in skills %}
+                            {% if loop.last %}
+                                {{ skill['name'] }}
+                            {% else %}
+                                {{ skill['name'] }},
+                            {% endif %}
+                        {% endfor %}                           
+                        </p>
+
+                    </div>
+
+                    <!-- Card action -->
+                    <div class="card-action right-align" id="idea-action">
+                        <p  id="idea-tags"> <i class="material-icons" id="tag">loyalty</i> 
+                        {% for tag in tagetories %}
+                            {% if loop.last %}
+                                {{ tag['name'] }}
+                            {% else %}
+                                {{ tag['name'] }},
+                            {% endif %}
+                        {% endfor %}
+                         </p>
+                        
+                        <!-- insert flask for tagetories -->
+<!--                         <div id="idea-tags">
+                            <i class="material-icons" >loyalty</i>
+                            <p>   Technology , Education </p>
+                        </div> -->
+
+                        {% for creator in idea_creator %}
+                            <a class="waves-effect waves-light btn white-text red right-align" onclick="sendMail()" type="submit"  id="intouch-btn" value={{creator['email']}}>Get in touch</a>
+                           
+                            
+                       {% endfor %}
+<!-- <button class="waves-effect waves-light btn white-text red right-align" type="submit"  id="intouch-btn" value={{creator['email']}}><a class="waves-effect waves-light btn white-text red right-align" onclick="sendMail()">Get in touch</a></button> -->
+    <!--                      <button class="waves-effect waves-light btn white-text red right-align" type="submit" value={{creator['email']}} id="intouch-btn"><a class="test" onclick="sendMail()">Get in touch</button> -->
+                    </div>
+
+                </div>
+            </div>
+            
+
+            <!-- Comments section  -->
+            <ul class="collection" id="comment-container">
+                <!-- Add new comments -->
+                {% for ida in ideas %}
+                <li class="collection-item avatar" id='newcomment' name={{ ida['idea_id'] }}>
+                    <i class="material-icons circle">folder</i>
+                    <!-- <span class="title">Comments</span><br> -->
+                    {% for usr in user %}
+                    <div class="input-field col m12">
+                        <input placeholder="Add comments..." id="comment" name="comment" type="text" class="validate">
+
+                    </div>
+                    <a id="usr-pic" name={{usr['picture']}}></a>
+                    {% endfor %}
+
+                    <div class="card-action right-align">
+                    {% for usr in user %}
+                        <button class="waves-effect waves-light btn white-text red right-align" type="submit" name="action" id="comment-btn" value={{usr['name']}} >Comment</button>
+                    {% endfor %}
+
+
+       <!--                  <button class="waves-effect waves-light btn white-text red right-align" type="submit" name="action" id="comment-btn" >Comment</button> -->
+
+                    </div>
+                    
+                </li>
+                {% endfor %}
+                <div id="comment-display">
+                {% for item in comments %}
+                    <li class="collection-item avatar">
+                        <img src={{ item['picture']}} alt="" class="circle">
+                        
+                        <span class="title">{{ item['name'] }}</span>
+                        <p>
+                        {{ item['comment'] }}
+                        </p>
+                    </li>
+                {% endfor %}
+                </div>
+            </ul> 
+            
+
+        </div>
+    </div>
+</div>
+{% endblock %}
